@@ -10,6 +10,10 @@ import (
 // to connect to the SuperMicro board and manage power state
 func New() {
 	app := cli.NewApp()
+	app.Name = "smashd"
+	app.HelpName = "smashd"
+	app.Author = "tcarrio <tom@carrio.dev>"
+	app.Description = "Manage the power state through the SMASH-CLP shell"
 	app.Version = version()
 	app.HideVersion = true
 	app.Flags = []cli.Flag{
