@@ -1,4 +1,4 @@
-package powerd
+package smashd
 
 import (
 	"os"
@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-// New runs the powerd CLI, parsing user input and spawning a new shell
+// New runs the smashd CLI, parsing user input and spawning a new shell
 // to connect to the SuperMicro board and manage power state
 func New() {
 	app := cli.NewApp()
@@ -20,23 +20,23 @@ func New() {
 		cli.StringFlag{
 			Name:   "user, u",
 			Usage:  "the username for authenticating against the server",
-			EnvVar: "POWERD_USERNAME",
+			EnvVar: "SMASHD_USERNAME",
 			Value:  "ADMIN",
 		},
 		cli.StringFlag{
 			Name:   "pass, p",
 			Usage:  "the password for authenticating against the server",
-			EnvVar: "POWERD_PASSWORD",
+			EnvVar: "SMASHD_PASSWORD",
 		},
 		cli.StringFlag{
 			Name:   "address, a",
 			Usage:  "the address of the server",
-			EnvVar: "POWERD_ADDRESS",
+			EnvVar: "SMASHD_ADDRESS",
 		},
 		cli.UintFlag{
 			Name:   "port, P",
 			Usage:  "the SSH port of the server",
-			EnvVar: "POWERD_PORT",
+			EnvVar: "SMASHD_PORT",
 			Value:  22,
 		},
 		cli.StringFlag{

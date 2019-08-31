@@ -14,7 +14,7 @@ $(GOMETALINTER):
 lint: $(GOMETALINTER)
 	gometalinter ./... --vendor
 
-BINARY := powerd
+BINARY := smashd
 VERSION := $(shell go run cmd/main.go -v)
 PLATFORMS := windows linux darwin
 os = $(word 1, $@)

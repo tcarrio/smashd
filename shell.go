@@ -1,4 +1,4 @@
-package powerd
+package smashd
 
 import (
 	"fmt"

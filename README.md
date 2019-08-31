@@ -1,4 +1,4 @@
-# powerd
+# smashd
 
 Utility for interacting with the ATEN SMASH-CLP System Management Shell to manage power on my server. It is hosted behind a standard OpenSSH server. The power can be controlled at `/system1/pwrmgtsvc1` with the following verbs: `start`, `stop`, `reset`.
 
