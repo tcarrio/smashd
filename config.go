@@ -15,9 +15,9 @@ type shellConfig struct {
 }
 
 func newConfig(c *cli.Context) shellConfig {
-	username := c.String("username")
-	password := c.String("password")
-	address := c.String("Address")
+	username := c.String("user")
+	password := c.String("pass")
+	address := c.String("address")
 	port := c.Uint("port")
 	state := c.String("state")
 

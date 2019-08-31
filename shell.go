@@ -3,6 +3,7 @@ package powerd
 import (
 	"fmt"
 	"io"
+	"log"
 	"time"
 
 	"golang.org/x/crypto/ssh"
@@ -17,10 +18,16 @@ type shell struct {
 	discard []byte
 }
 
+var powerVerbs = map[string]string{
+	"on":    "start",
+	"off":   "stop",
+	"reset": "reset",
+}
+
 func newSecureShell(conf shellConfig) (*shell, error) {
-	location := fmt.Sprintf("%s:%d", conf.Address, conf.Port)
+	location := fmt.Sprintf("%s:%d", conf.Address, 22)
 	config := &ssh.ClientConfig{
-		Timeout: time.Second * 10,
+		Timeout: time.Second * 15,
 		User:    conf.Username,
 		Auth: []ssh.AuthMethod{
 			ssh.Password(conf.Password),
@@ -48,6 +55,11 @@ func newSecureShell(conf shellConfig) (*shell, error) {
 		return nil, err
 	}
 
+	err = session.Shell()
+	if err != nil {
+		return nil, err
+	}
+
 	return &shell{
 		session: session,
 		in:      stdin,
@@ -58,18 +70,25 @@ func newSecureShell(conf shellConfig) (*shell, error) {
 	}, nil
 }
 
-func (s *shell) login() {
-
-}
-
 func (s *shell) navigate(dir string) {
-
+	s.in.Write([]byte("cd " + dir + "\n"))
 }
 
-func (s *shell) execute(command string) {
-
+func (s *shell) run(command string) {
+	s.in.Write([]byte(command + "\n"))
 }
 
 func (s *shell) start() error {
+	defer s.end()
+	s.navigate("/system1/pwrmgtsvc1")
+	action, success := powerVerbs[s.config.State]
+	if !success {
+		log.Fatalf("Power state %s not found\n! Exiting...", s.config.State)
+	}
+	s.run(action)
 	return nil
+}
+
+func (s *shell) end() error {
+	return s.session.Close()
 }

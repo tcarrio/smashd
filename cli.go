@@ -21,6 +21,7 @@ func New() {
 			Name:   "user, u",
 			Usage:  "the username for authenticating against the server",
 			EnvVar: "POWERD_USERNAME",
+			Value:  "ADMIN",
 		},
 		cli.StringFlag{
 			Name:   "pass, p",
@@ -29,8 +30,14 @@ func New() {
 		},
 		cli.StringFlag{
 			Name:   "address, a",
-			Usage:  "the password for authenticating against the server",
+			Usage:  "the address of the server",
 			EnvVar: "POWERD_ADDRESS",
+		},
+		cli.UintFlag{
+			Name:   "port, P",
+			Usage:  "the SSH port of the server",
+			EnvVar: "POWERD_PORT",
+			Value:  22,
 		},
 		cli.StringFlag{
 			Name:  "state, s",
